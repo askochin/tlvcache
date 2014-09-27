@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tlvcache" default="tlvcache-test-app-jar" basedir=".">
+
+	<path id="classpath">
+		<pathelement path="${java.class.path}"/>
+		<fileset dir="lib" includes="*.jar"/> 
+	</path>
+
+	<target name="compile">
+		<javac srcdir="src" destdir="classes" classpathref="classpath" encoding="utf8" />
+		<copy file="src/com/tlvcache/testapp/config.properties" 
+			todir="classes/com/tlvcache/testapp" overwrite="true" />
+	</target>
+
+	<target name="tlvcache-test-app-jar" description="Build TlvCache test application." depends="compile">
+		<jar destfile="tlvcache_test_app.jar" basedir="classes" includes="com/tlvcache/**">
+			<zipgroupfileset dir="lib" includes="**/*.jar"/>
+			<manifest><attribute name="Main-Class" value="com.tlvcache.testapp.TestApplication" /></manifest>
+		</jar>
+	</target>
+	
+</project>
